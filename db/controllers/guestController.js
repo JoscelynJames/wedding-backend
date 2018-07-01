@@ -27,7 +27,7 @@ exports.list_all_guests = (req, res) => {
 
 exports.create_a_guest = (req, res) => {
 
-	if (!req.body.email || !req.body.email) {
+	if (!req.body.email || !req.body.guest1) {
 
 		res.status(500).send('Missing data');
 
@@ -38,13 +38,25 @@ exports.create_a_guest = (req, res) => {
 			new_guest.save((err, guest) => {
 		
 				if (err) res.status(500).send(err);
-		
-				const mailOptions = {
-					from: 'jacqueandkemelwedding@gmail.com',
-					to: guest.email,
-					subject: 'Test',
-					html: `<p>Test</p>`
-				};
+
+				var mailOptions;
+
+				if (guest.attending) {
+					mailOptions = {
+						from: 'jacqueandkemelwedding@gmail.com',
+						to: guest.email,
+						subject: 'Test',
+						html: `<p>Test attnding</p>`
+					};
+				} else {
+					mailOptions = {
+						from: 'jacqueandkemelwedding@gmail.com',
+						to: guest.email,
+						subject: 'Test',
+						html: `<p>Test not attending</p>`
+					};
+				}
+
 		
 				transporter.sendMail(mailOptions, function (err, info) {
 		

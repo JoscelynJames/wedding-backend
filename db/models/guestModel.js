@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const GuestsSchema = new Schema({
+	attending: {
+		type: Boolean,
+		required: true
+	},
 	guest1: {
 		type: String,
 		required: true
