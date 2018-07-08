@@ -19,14 +19,18 @@ exports.create_a_song = (req, res) => {
 	if (req.body.length > 0) {
 
 		req.body.forEach(song => {
-	
-			var new_song = new Song(song);
 
-			new_song.save((err, savedSong) => {
+			if (song.artist && song.title) {
 
-				if (err) res.status(500).send(err);
+				var new_song = new Song(song);
 	
-			});
+				new_song.save((err, savedSong) => {
+	
+					if (err) res.status(500).send(err);
+		
+				});
+
+			}
 			
 		});
 
