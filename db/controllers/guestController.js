@@ -56,8 +56,8 @@ exports.create_a_guest = (req, res) => {
 					mailOptions = {
 						from: 'jacqueandkemelwedding@gmail.com',
 						to: guest.email,
-						subject: 'Test',
-						html: `<p>Test not attending</p>`
+						subject: 'We got your RSVP',
+						html: `<p>We are sorry to hear you cant make it!</p>`
 					};
 				}
 
