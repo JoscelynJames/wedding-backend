@@ -1,6 +1,9 @@
 require('../models/guestModel');
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
+const fs = require('fs');
+var emailTemplate = require('../email/email');
+
 require('dotenv').config();
 
 var transporter = nodemailer.createTransport({
@@ -34,7 +37,7 @@ exports.create_a_guest = (req, res) => {
 	} else {
 
 		var new_guest = new Guest(req.body);
-		
+			console.log('before save')
 			new_guest.save((err, guest) => {
 		
 				if (err) res.status(500).send(err);
@@ -42,11 +45,12 @@ exports.create_a_guest = (req, res) => {
 				var mailOptions;
 
 				if (guest.attending) {
+					console.log('in attending')
 					mailOptions = {
 						from: 'jacqueandkemelwedding@gmail.com',
 						to: guest.email,
-						subject: 'Test',
-						html: `<p>Test attnding</p>`
+						subject: 'We have you in the books',
+						html: emailTemplate
 					};
 				} else {
 					mailOptions = {
@@ -57,9 +61,11 @@ exports.create_a_guest = (req, res) => {
 					};
 				}
 
-		
+				console.log('before transporter')
+
 				transporter.sendMail(mailOptions, function (err, info) {
-		
+					console.log('in transporter')
+
 					if (err) res.status(500).send(err);
 		
 					res.status(200).json(guest);
