@@ -6,6 +6,9 @@ const GuestsSchema = new Schema({
 		type: Boolean,
 		required: true
 	},
+	allergies: {
+		type: String
+	},
 	guest1: {
 		type: String,
 		required: true
