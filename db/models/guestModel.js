@@ -9,7 +9,6 @@ const GuestsSchema = new Schema({
 	allergies: {
 		type: String
 	},
-
 	guest1: {
 		type: String,
 		required: true
